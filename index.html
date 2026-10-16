@@ -1,0 +1,2623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TechStore - E-Commerce Product Store</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+    <style>
+        /* ================= GENERAL ================= */
+
+        body {
+            background-color: #f5f7fa;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        .navbar-brand {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+
+        /* ================= HERO ================= */
+
+        .hero {
+            background: linear-gradient(135deg, #0d6efd, #6610f2);
+            color: white;
+            padding: 80px 20px;
+        }
+
+        .hero-icon {
+            font-size: 150px;
+        }
+
+
+        /* ================= PRODUCT CARDS ================= */
+
+        .product-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            height: 100%;
+            transition: 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 230px;
+            object-fit: contain;
+            background-color: white;
+            padding: 15px;
+        }
+
+        .price {
+            color: #198754;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .category-badge {
+            font-size: 12px;
+        }
+
+
+        /* ================= FILTER BUTTONS ================= */
+
+        .filter-btn {
+            margin: 4px;
+        }
+
+
+        /* ================= FULL SCREEN PRODUCT MODAL ================= */
+
+        .product-photo-section {
+            width: 100%;
+            padding: 20px 10px;
+        }
+
+        .product-photo-section h3 {
+            font-weight: bold;
+        }
+
+        .modal-product-image {
+            width: 100%;
+            height: 60vh;
+            min-height: 400px;
+            object-fit: contain;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .product-details-section {
+            width: 100%;
+            padding: 20px 10px 60px;
+        }
+
+        .product-details-section .lead {
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .product-details-section .feature-list {
+            font-size: 18px;
+        }
+
+        .product-details-section .feature-list li {
+            margin-bottom: 12px;
+        }
+
+
+        /* ================= THUMBNAILS ================= */
+
+        .thumbnail {
+            width: 90px;
+            height: 75px;
+            object-fit: contain;
+            background-color: white;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            padding: 5px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .thumbnail:hover {
+            border-color: #0d6efd;
+            transform: scale(1.05);
+        }
+
+
+        /* ================= CART ================= */
+
+        .cart-item {
+            border-bottom: 1px solid #ddd;
+            padding: 12px 0;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background-color: #212529;
+            color: white;
+        }
+
+        footer a {
+            color: #adb5bd;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .social-icon {
+            font-size: 22px;
+            margin-right: 12px;
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 768px) {
+
+            .hero {
+                padding: 50px 15px;
+            }
+
+            .hero-icon {
+                font-size: 90px;
+            }
+
+            .modal-product-image {
+                height: 45vh;
+                min-height: 280px;
+            }
+
+            .product-photo-section {
+                padding: 10px 5px;
+            }
+
+            .product-details-section {
+                padding: 10px 5px 40px;
+            }
+
+            .thumbnail {
+                width: 70px;
+                height: 60px;
+            }
+
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+                         NAVBAR
+    ====================================================== -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+
+        <div class="container">
+
+            <a class="navbar-brand" href="#home">
+                <i class="bi bi-shop"></i>
+                TechStore
+            </a>
+
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu"
+                aria-controls="navbarMenu"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                title="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+
+            <div
+                class="collapse navbar-collapse"
+                id="navbarMenu">
+
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="#home">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="#products">
+                            Products
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="#about">
+                            About
+                        </a>
+                    </li>
+
+                    <li class="nav-item ms-lg-3">
+
+                        <button
+                            class="btn btn-primary"
+                            type="button"
+                            data-bs-toggle="offcanvas"
+                            data-bs-target="#cartCanvas"
+                            aria-controls="cartCanvas">
+
+                            <i class="bi bi-cart"></i>
+
+                            Cart
+
+                            <span
+                                id="cartCount"
+                                class="badge bg-danger">
+                                0
+                            </span>
+
+                        </button>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+                           HERO
+    ====================================================== -->
+
+    <section
+        id="home"
+        class="hero">
+
+        <div class="container">
+
+            <div class="row align-items-center">
+
+                <div class="col-md-7">
+
+                    <h1 class="display-4 fw-bold">
+                        Welcome to TechStore
+                    </h1>
+
+                    <p class="lead">
+                        Discover laptops, smartphones, audio devices,
+                        accessories and more at one place.
+                    </p>
+
+                    <a
+                        href="#products"
+                        class="btn btn-light btn-lg">
+
+                        Shop Now
+
+                    </a>
+
+                </div>
+
+
+                <div class="col-md-5 text-center">
+
+                    <i
+                        class="bi bi-laptop hero-icon"
+                        aria-hidden="true">
+                    </i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+                         PRODUCTS
+    ====================================================== -->
+
+    <section
+        id="products"
+        class="py-5">
+
+        <div class="container">
+
+            <div class="text-center mb-4">
+
+                <h2 class="fw-bold">
+                    Our Products
+                </h2>
+
+                <p class="text-muted">
+                    Choose your favourite technology products
+                </p>
+
+            </div>
+
+
+            <!-- SEARCH -->
+
+            <div class="row justify-content-center mb-3">
+
+                <div class="col-md-6">
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+                            <i
+                                class="bi bi-search"
+                                aria-hidden="true">
+                            </i>
+                        </span>
+
+                        <input
+                            type="text"
+                            id="searchInput"
+                            class="form-control"
+                            placeholder="Search products..."
+                            aria-label="Search products">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CATEGORY FILTERS -->
+
+            <div class="text-center mb-4">
+
+                <button
+                    type="button"
+                    class="btn btn-primary filter-btn category-filter"
+                    data-category="all">
+
+                    All
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-outline-primary filter-btn category-filter"
+                    data-category="laptop">
+
+                    Laptops
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-outline-primary filter-btn category-filter"
+                    data-category="mobile">
+
+                    Mobiles
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-outline-primary filter-btn category-filter"
+                    data-category="audio">
+
+                    Audio
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-outline-primary filter-btn category-filter"
+                    data-category="accessories">
+
+                    Accessories
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-outline-primary filter-btn category-filter"
+                    data-category="wearable">
+
+                    Wearables
+
+                </button>
+
+            </div>
+
+
+            <!-- PRODUCT GRID -->
+
+            <div
+                class="row g-4"
+                id="productContainer">
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+                           ABOUT
+    ====================================================== -->
+
+    <section
+        id="about"
+        class="py-5 bg-white">
+
+        <div class="container">
+
+            <div class="row align-items-center">
+
+                <div class="col-md-6">
+
+                    <h2 class="fw-bold">
+                        About TechStore
+                    </h2>
+
+                    <p class="text-muted">
+                        TechStore is a demo e-commerce website created
+                        using HTML, CSS, JavaScript, jQuery and Bootstrap.
+                    </p>
+
+                    <p class="text-muted">
+                        This project demonstrates product listing,
+                        search, category filtering, product details,
+                        shopping cart and responsive design.
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6 text-center">
+
+                    <i
+                        class="bi bi-cart-check display-1 text-primary"
+                        aria-hidden="true">
+                    </i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+                  FULL SCREEN PRODUCT DETAILS MODAL
+    ====================================================== -->
+
+    <div
+        class="modal fade"
+        id="productModal"
+        tabindex="-1"
+        aria-labelledby="productModalLabel"
+        aria-hidden="true">
+
+        <div class="modal-dialog modal-fullscreen">
+
+            <div class="modal-content">
+
+
+                <!-- MODAL HEADER -->
+
+                <div class="modal-header">
+
+                    <h5
+                        class="modal-title"
+                        id="productModalLabel">
+
+                        Product Details
+
+                    </h5>
+
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                    </button>
+
+                </div>
+
+
+
+                <!-- MODAL BODY -->
+
+                <div class="modal-body">
+
+
+                    <!-- =================================================
+                              PRODUCT PHOTOS FIRST
+                    ================================================== -->
+
+                    <div class="product-photo-section">
+
+                        <h3 class="text-center mb-4">
+                            Product Photos
+                        </h3>
+
+
+                        <!-- CAROUSEL -->
+
+                        <div
+                            id="productCarousel"
+                            class="carousel slide"
+                            data-bs-ride="false">
+
+                            <div
+                                class="carousel-inner"
+                                id="carouselImages">
+                            </div>
+
+
+                            <!-- PREVIOUS -->
+
+                            <button
+                                class="carousel-control-prev"
+                                type="button"
+                                data-bs-target="#productCarousel"
+                                data-bs-slide="prev">
+
+                                <span
+                                    class="carousel-control-prev-icon bg-dark rounded">
+                                </span>
+
+                                <span class="visually-hidden">
+                                    Previous
+                                </span>
+
+                            </button>
+
+
+                            <!-- NEXT -->
+
+                            <button
+                                class="carousel-control-next"
+                                type="button"
+                                data-bs-target="#productCarousel"
+                                data-bs-slide="next">
+
+                                <span
+                                    class="carousel-control-next-icon bg-dark rounded">
+                                </span>
+
+                                <span class="visually-hidden">
+                                    Next
+                                </span>
+
+                            </button>
+
+                        </div>
+
+
+
+                        <!-- THUMBNAILS -->
+
+                        <div
+                            id="thumbnailContainer"
+                            class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+                        </div>
+
+                    </div>
+
+
+
+                    <hr class="my-5">
+
+
+
+                    <!-- =================================================
+                              PRODUCT DETAILS BELOW PHOTOS
+                    ================================================== -->
+
+                    <div class="product-details-section">
+
+                        <div class="container">
+
+                            <div class="text-center">
+
+
+                                <span
+                                    id="modalCategory"
+                                    class="badge bg-primary mb-3">
+                                </span>
+
+
+                                <h2
+                                    id="modalProductName"
+                                    class="fw-bold">
+                                </h2>
+
+
+                                <p
+                                    id="modalDescription"
+                                    class="text-muted lead">
+                                </p>
+
+
+                                <h3
+                                    id="modalPrice"
+                                    class="price mb-4">
+                                </h3>
+
+                            </div>
+
+
+
+                            <div class="row justify-content-center">
+
+                                <div class="col-lg-8">
+
+                                    <h4 class="fw-bold mb-3">
+                                        Product Features
+                                    </h4>
+
+
+                                    <ul
+                                        id="modalFeatures"
+                                        class="feature-list">
+                                    </ul>
+
+
+                                    <div class="text-center mt-4">
+
+                                        <button
+                                            id="modalAddCart"
+                                            type="button"
+                                            class="btn btn-primary btn-lg px-5">
+
+                                            <i
+                                                class="bi bi-cart-plus"
+                                                aria-hidden="true">
+                                            </i>
+
+                                            Add to Cart
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+                         CART
+    ====================================================== -->
+
+    <div
+        class="offcanvas offcanvas-end"
+        tabindex="-1"
+        id="cartCanvas"
+        aria-labelledby="cartCanvasLabel">
+
+        <div class="offcanvas-header">
+
+            <h5
+                class="offcanvas-title"
+                id="cartCanvasLabel">
+
+                <i
+                    class="bi bi-cart"
+                    aria-hidden="true">
+                </i>
+
+                Shopping Cart
+
+            </h5>
+
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close">
+            </button>
+
+        </div>
+
+
+        <div class="offcanvas-body">
+
+            <div id="cartItems"></div>
+
+            <hr>
+
+
+            <div class="d-flex justify-content-between">
+
+                <strong>
+                    Total:
+                </strong>
+
+                <strong
+                    id="cartTotal"
+                    class="text-success">
+
+                    ₹0
+
+                </strong>
+
+            </div>
+
+
+            <button
+                id="checkoutBtn"
+                type="button"
+                class="btn btn-success w-100 mt-3">
+
+                <i
+                    class="bi bi-credit-card"
+                    aria-hidden="true">
+                </i>
+
+                Checkout
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+                         FOOTER
+    ====================================================== -->
+
+    <footer class="pt-5 pb-3">
+
+        <div class="container">
+
+            <div class="row">
+
+
+                <!-- BRAND -->
+
+                <div class="col-md-4 mb-4">
+
+                    <h4>
+
+                        <i
+                            class="bi bi-shop"
+                            aria-hidden="true">
+                        </i>
+
+                        TechStore
+
+                    </h4>
+
+
+                    <p class="text-secondary">
+                        Your one-stop destination for modern
+                        technology products.
+                    </p>
+
+
+                    <div>
+
+
+                        <a
+                            href="#"
+                            class="social-icon"
+                            aria-label="Facebook"
+                            title="Facebook">
+
+                            <i
+                                class="bi bi-facebook"
+                                aria-hidden="true">
+                            </i>
+
+                        </a>
+
+
+                        <a
+                            href="#"
+                            class="social-icon"
+                            aria-label="Instagram"
+                            title="Instagram">
+
+                            <i
+                                class="bi bi-instagram"
+                                aria-hidden="true">
+                            </i>
+
+                        </a>
+
+
+                        <a
+                            href="#"
+                            class="social-icon"
+                            aria-label="Twitter"
+                            title="Twitter">
+
+                            <i
+                                class="bi bi-twitter-x"
+                                aria-hidden="true">
+                            </i>
+
+                        </a>
+
+
+                        <a
+                            href="#"
+                            class="social-icon"
+                            aria-label="LinkedIn"
+                            title="LinkedIn">
+
+                            <i
+                                class="bi bi-linkedin"
+                                aria-hidden="true">
+                            </i>
+
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- QUICK LINKS -->
+
+                <div class="col-md-2 mb-4">
+
+                    <h5>
+                        Quick Links
+                    </h5>
+
+                    <p>
+                        <a href="#home">
+                            Home
+                        </a>
+                    </p>
+
+                    <p>
+                        <a href="#products">
+                            Products
+                        </a>
+                    </p>
+
+                    <p>
+                        <a href="#about">
+                            About
+                        </a>
+                    </p>
+
+                </div>
+
+
+
+                <!-- CATEGORIES -->
+
+                <div class="col-md-3 mb-4">
+
+                    <h5>
+                        Categories
+                    </h5>
+
+                    <p>
+                        <a href="#products">
+                            Laptops
+                        </a>
+                    </p>
+
+                    <p>
+                        <a href="#products">
+                            Mobiles
+                        </a>
+                    </p>
+
+                    <p>
+                        <a href="#products">
+                            Audio
+                        </a>
+                    </p>
+
+                    <p>
+                        <a href="#products">
+                            Accessories
+                        </a>
+                    </p>
+
+                </div>
+
+
+
+                <!-- CONTACT -->
+
+                <div class="col-md-3 mb-4">
+
+                    <h5>
+                        Contact Us
+                    </h5>
+
+                    <p class="text-secondary">
+
+                        <i
+                            class="bi bi-envelope"
+                            aria-hidden="true">
+                        </i>
+
+                        techstore@example.com
+
+                    </p>
+
+
+                    <p class="text-secondary">
+
+                        <i
+                            class="bi bi-telephone"
+                            aria-hidden="true">
+                        </i>
+
+                        +91 98765 43210
+
+                    </p>
+
+
+                    <p class="text-secondary">
+
+                        <i
+                            class="bi bi-geo-alt"
+                            aria-hidden="true">
+                        </i>
+
+                        India
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <hr>
+
+
+            <div class="text-center text-secondary">
+
+                <p class="mb-1">
+                    © 2026 TechStore. All Rights Reserved.
+                </p>
+
+                <small>
+                    Designed & Developed by Ramya Sri
+                </small>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+                           SCRIPTS
+    ====================================================== -->
+
+    <!-- jQuery -->
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.min.js">
+    </script>
+
+
+    <!-- Bootstrap JS -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+
+
+    <script>
+
+        /* =====================================================
+                           PRODUCT DATA
+        ====================================================== */
+
+        const products = [
+
+            /* ================= LAPTOPS ================= */
+
+            {
+                id: 1,
+                name: "HP 15s Laptop",
+                folder: "hp-15s",
+                category: "laptop",
+                categoryName: "Laptop",
+                price: 55000,
+
+                description:
+                    "HP 15s laptop suitable for students, programming, office work and everyday computing.",
+
+                images: [
+                    "sfront.jpeg",
+                    "sleft.jpeg",
+                    "sright.jpeg",
+                    "sscreen.jpeg"
+                ],
+
+                features: [
+                    "15.6-inch Full HD Display",
+                    "Intel Core Processor",
+                    "8 GB RAM",
+                    "512 GB SSD",
+                    "Windows 11",
+                    "Wi-Fi Connectivity",
+                    "Bluetooth",
+                    "HD Webcam"
+                ]
+            },
+
+
+            {
+                id: 2,
+                name: "Dell Inspiron 15",
+                folder: "dell",
+                category: "laptop",
+                categoryName: "Laptop",
+                price: 60000,
+
+                description:
+                    "Dell Inspiron laptop designed for study, programming, office work and entertainment.",
+
+                images: [
+                    "dellfront.jpeg",
+                    "dellback.jpeg",
+                    "delleft.jpeg",
+                    "dellright.jpeg"
+                ],
+
+                features: [
+                    "15.6-inch Display",
+                    "Intel Core Processor",
+                    "8 GB RAM",
+                    "512 GB SSD",
+                    "Windows 11",
+                    "HD Webcam",
+                    "Wi-Fi",
+                    "Bluetooth"
+                ]
+            },
+
+
+            {
+                id: 3,
+                name: "Lenovo IdeaPad Slim 3",
+                folder: "lenovo",
+                category: "laptop",
+                categoryName: "Laptop",
+                price: 58000,
+
+                description:
+                    "Slim Lenovo laptop designed for students, programming, office work and entertainment.",
+
+                images: [
+                    "lenovofront.jpeg",
+                    "lenovoback.jpeg",
+                    "lenovoleft.jpeg",
+                    "lenovoright.jpeg"
+                ],
+
+                features: [
+                    "15.6-inch Display",
+                    "Intel Core Processor",
+                    "16 GB RAM",
+                    "512 GB SSD",
+                    "Slim and Lightweight Design",
+                    "Full HD Display",
+                    "Wi-Fi Connectivity",
+                    "Bluetooth"
+                ]
+            },
+
+
+            {
+                id: 4,
+                name: "ASUS Vivobook 15",
+                folder: "ausu",
+                category: "laptop",
+                categoryName: "Laptop",
+                price: 52000,
+
+                description:
+                    "ASUS Vivobook laptop suitable for students, coding, office work and daily computing.",
+
+                images: [
+                    "asusfront.jpeg",
+                    "asusback.jpeg"
+                ],
+
+                features: [
+                    "15.6-inch Display",
+                    "Intel Core Processor",
+                    "8 GB RAM",
+                    "512 GB SSD",
+                    "Windows 11",
+                    "Wi-Fi",
+                    "Bluetooth"
+                ]
+            },
+
+
+            {
+                id: 5,
+                name: "Acer Aspire 5",
+                folder: "acer",
+                category: "laptop",
+                categoryName: "Laptop",
+                price: 50000,
+
+                description:
+                    "Acer Aspire laptop offering good performance for study, programming and everyday tasks.",
+
+                images: [
+                    "acerfront.jpg",
+                    "backacer.jpeg",
+                    "leftacer.jpeg",
+                    "rightacer.jpeg"
+                ],
+
+                features: [
+                    "15.6-inch Display",
+                    "Intel Core Processor",
+                    "8 GB RAM",
+                    "512 GB SSD",
+                    "Windows 11",
+                    "HD Webcam",
+                    "Wi-Fi",
+                    "Bluetooth"
+                ]
+            },
+
+
+            {
+                id: 6,
+                name: "MacBook Air",
+                folder: "mac",
+                category: "laptop",
+                categoryName: "Laptop",
+                price: 85000,
+
+                description:
+                    "Apple MacBook Air offering a lightweight design and smooth performance.",
+
+                images: [
+                    "macfront.jpeg",
+                    "macback.jpeg",
+                    "leftmac.jpeg",
+                    "macright.jpeg"
+                ],
+
+                features: [
+                    "Apple M2 Chip",
+                    "13-inch Display",
+                    "8 GB RAM",
+                    "256 GB SSD",
+                    "macOS",
+                    "Lightweight Design",
+                    "Wi-Fi",
+                    "Bluetooth"
+                ]
+            },
+
+
+            /* ================= MOBILES ================= */
+
+            {
+                id: 7,
+                name: "Samsung Galaxy A55",
+                folder: "samsung",
+                category: "mobile",
+                categoryName: "Mobile",
+                price: 35000,
+
+                description:
+                    "Samsung smartphone with a modern display, camera system and 5G connectivity.",
+
+                images: [
+                    "samsungblack.jpeg",
+                    "samsungwhite.jpeg"
+                ],
+
+                features: [
+                    "6.6-inch AMOLED Display",
+                    "5G Connectivity",
+                    "50 MP Camera",
+                    "8 GB RAM",
+                    "128 GB Storage",
+                    "Large Battery",
+                    "Fast Charging"
+                ]
+            },
+
+
+            {
+                id: 8,
+                name: "iPhone 15",
+                folder: "iphone",
+                category: "mobile",
+                categoryName: "Mobile",
+                price: 70000,
+
+                description:
+                    "Apple iPhone with powerful performance, excellent camera and premium design.",
+
+                images: [
+                    "iphone15.jpeg",
+                    "iphonegreen.jpeg",
+                    "iphonepink.jpeg",
+                    "iphoneyellow.jpeg"
+                ],
+
+                features: [
+                    "6.1-inch Display",
+                    "Apple A16 Bionic Chip",
+                    "48 MP Main Camera",
+                    "128 GB Storage",
+                    "5G Connectivity",
+                    "Face ID",
+                    "iOS"
+                ]
+            },
+
+
+            {
+                id: 9,
+                name: "OnePlus 12R",
+                folder: "oneplus",
+                category: "mobile",
+                categoryName: "Mobile",
+                price: 42000,
+
+                description:
+                    "OnePlus smartphone designed for smooth performance, gaming and everyday use.",
+
+                images: [
+                    "oneplus.jpeg",
+                    "oneplusblack.jpeg",
+                    "oneplusblue.jpeg"
+                ],
+
+                features: [
+                    "AMOLED Display",
+                    "Snapdragon Processor",
+                    "8 GB RAM",
+                    "128 GB Storage",
+                    "5G Connectivity",
+                    "Fast Charging",
+                    "Large Battery"
+                ]
+            },
+
+
+            {
+                id: 10,
+                name: "Google Pixel 8a",
+                folder: "google",
+                category: "mobile",
+                categoryName: "Mobile",
+                price: 52000,
+
+                description:
+                    "Google Pixel smartphone known for its camera capabilities and clean Android experience.",
+
+                images: [
+                    "google.jpeg",
+                    "googleblack.jpeg",
+                    "googleblue.jpeg",
+                    "googlegreen.jpeg"
+                ],
+
+                features: [
+                    "OLED Display",
+                    "Google Tensor Processor",
+                    "8 GB RAM",
+                    "128 GB Storage",
+                    "Advanced Camera",
+                    "5G Connectivity",
+                    "Android"
+                ]
+            },
+
+
+            {
+                id: 11,
+                name: "Redmi Note 13 Pro",
+                folder: "redmi",
+                category: "mobile",
+                categoryName: "Mobile",
+                price: 28000,
+
+                description:
+                    "Feature-packed Redmi smartphone with a high-resolution camera and fast performance.",
+
+                images: [
+                    "redmi.jpeg",
+                    "redmipurple.jpeg",
+                    "redmiwhite.jpeg"
+                ],
+
+                features: [
+                    "AMOLED Display",
+                    "200 MP Camera",
+                    "8 GB RAM",
+                    "256 GB Storage",
+                    "5G Connectivity",
+                    "Fast Charging",
+                    "Large Battery"
+                ]
+            },
+
+
+            {
+                id: 12,
+                name: "Realme 12 Pro 5G",
+                folder: "realme",
+                category: "mobile",
+                categoryName: "Mobile",
+                price: 30000,
+
+                description:
+                    "Realme smartphone with stylish design, 5G connectivity and strong everyday performance.",
+
+                images: [
+                    "realme.jpeg",
+                    "realmeblue.jpeg",
+                    "realmecream.jpeg"
+                ],
+
+                features: [
+                    "AMOLED Display",
+                    "50 MP Camera",
+                    "8 GB RAM",
+                    "256 GB Storage",
+                    "5G Connectivity",
+                    "Fast Charging",
+                    "Android"
+                ]
+            },
+
+
+            /* ================= AUDIO ================= */
+
+            {
+                id: 13,
+                name: "Sony WH-1000XM5",
+                folder: "sony",
+                category: "audio",
+                categoryName: "Audio",
+                price: 30000,
+
+                description:
+                    "Premium Sony wireless headphones with noise cancellation and high-quality sound.",
+
+                images: [
+                    "sonyheadset.jpeg",
+                    "sonyheadset1.jpeg",
+                    "sonyheadset2.jpeg",
+                    "songheadset3.jpeg"
+                ],
+
+                features: [
+                    "Active Noise Cancellation",
+                    "Wireless Connectivity",
+                    "High Quality Audio",
+                    "Long Battery Life",
+                    "Built-in Microphone",
+                    "Bluetooth"
+                ]
+            },
+
+
+            {
+                id: 14,
+                name: "JBL Flip 6",
+                folder: "jbl",
+                category: "audio",
+                categoryName: "Audio",
+                price: 12000,
+
+                description:
+                    "Portable JBL Bluetooth speaker designed for powerful sound and outdoor use.",
+
+                images: [
+                    "jbl.jpeg",
+                    "jbl1.jpeg",
+                    "jbl2.jpeg",
+                    "jbl3.jpeg"
+                ],
+
+                features: [
+                    "Portable Design",
+                    "Powerful Sound",
+                    "Bluetooth",
+                    "Water Resistant",
+                    "Long Battery Life",
+                    "Wireless Connectivity"
+                ]
+            },
+
+
+            {
+                id: 15,
+                name: "Samsung Galaxy Buds",
+                folder: "samsungearbuds",
+                category: "audio",
+                categoryName: "Audio",
+                price: 12000,
+
+                description:
+                    "Samsung wireless earbuds offering comfortable design and quality audio.",
+
+                images: [
+                    "samsungearbuds.jpeg",
+                    "samsungearbuds1.jpeg",
+                    "samsungearbuds2.jpeg",
+                    "samsungearbuds3.jpeg"
+                ],
+
+                features: [
+                    "True Wireless",
+                    "Noise Cancellation",
+                    "Bluetooth",
+                    "Touch Controls",
+                    "Long Battery Life",
+                    "Compact Charging Case"
+                ]
+            },
+
+
+            {
+                id: 16,
+                name: "Razer BlackShark Gaming Headset",
+                folder: "razer",
+                category: "audio",
+                categoryName: "Audio",
+                price: 9000,
+
+                description:
+                    "Gaming headset designed for immersive gaming audio and clear communication.",
+
+                images: [
+                    "razer.jpeg",
+                    "razer1.jpeg",
+                    "razer2.jpeg",
+                    "razer3.jpeg"
+                ],
+
+                features: [
+                    "Gaming Audio",
+                    "Noise Isolation",
+                    "Built-in Microphone",
+                    "Comfortable Ear Cushions",
+                    "PC Compatibility",
+                    "Gaming Design"
+                ]
+            },
+
+
+            {
+                id: 17,
+                name: "Sony Soundbar",
+                folder: "sonyspeaker",
+                category: "audio",
+                categoryName: "Audio",
+                price: 18000,
+
+                description:
+                    "Sony soundbar designed to improve television and entertainment audio.",
+
+                images: [
+                    "sonyspeaker.jpeg",
+                    "sonyspeaker1.jpeg",
+                    "sonyspeaker2.jpeg"
+                ],
+
+                features: [
+                    "Powerful Audio",
+                    "Wireless Connectivity",
+                    "Bluetooth",
+                    "TV Compatible",
+                    "Compact Design"
+                ]
+            },
+
+
+            {
+                id: 18,
+                name: "Amazon Echo Dot",
+                folder: "echodot",
+                category: "audio",
+                categoryName: "Audio",
+                price: 5000,
+
+                description:
+                    "Compact smart speaker suitable for music, information and smart-home control.",
+
+                images: [
+                    "echodot.jpeg",
+                    "echodot1.jpeg",
+                    "echodot2.jpeg"
+                ],
+
+                features: [
+                    "Smart Speaker",
+                    "Voice Assistant",
+                    "Wi-Fi",
+                    "Bluetooth",
+                    "Compact Design",
+                    "Smart Home Support"
+                ]
+            },
+
+
+            /* ================= WEARABLE ================= */
+
+            {
+                id: 19,
+                name: "Samsung Galaxy Watch",
+                folder: "samsungwatch",
+                category: "wearable",
+                categoryName: "Wearable",
+                price: 25000,
+
+                description:
+                    "Samsung smartwatch offering fitness tracking, notifications and smart features.",
+
+                images: [
+                    "samsungwatchblack.jpeg",
+                    "samsungwatchwhite.jpeg"
+                ],
+
+                features: [
+                    "AMOLED Display",
+                    "Fitness Tracking",
+                    "Heart Rate Monitoring",
+                    "Notifications",
+                    "Bluetooth",
+                    "Water Resistance"
+                ]
+            },
+
+
+            /* ================= ACCESSORIES ================= */
+
+            {
+                id: 20,
+                name: "Logitech G413 Keyboard",
+                folder: "logitechg413",
+                category: "accessories",
+                categoryName: "Accessories",
+                price: 7000,
+
+                description:
+                    "Mechanical gaming keyboard designed for gaming and comfortable typing.",
+
+                images: [
+                    "logitechg413front.jpeg",
+                    "logitechg413fr.jpeg",
+                    "logitechg413side.jpeg"
+                ],
+
+                features: [
+                    "Mechanical Keys",
+                    "Gaming Design",
+                    "USB Connectivity",
+                    "Durable Construction",
+                    "Backlit Keys"
+                ]
+            },
+
+
+            {
+                id: 21,
+                name: "Logitech MX Master Mouse",
+                folder: "logitechmx",
+                category: "accessories",
+                categoryName: "Accessories",
+                price: 8500,
+
+                description:
+                    "Premium wireless mouse suitable for productivity, programming and office work.",
+
+                images: [
+                    "logitechmxfront.jpeg",
+                    "logitechmxleft.jpeg",
+                    "logitechmxright.jpeg"
+                ],
+
+                features: [
+                    "Wireless Connectivity",
+                    "Ergonomic Design",
+                    "High Precision Sensor",
+                    "Long Battery Life",
+                    "Bluetooth",
+                    "USB Receiver"
+                ]
+            },
+
+
+            {
+                id: 22,
+                name: "Logitech Gaming Mouse",
+                folder: "logitech",
+                category: "accessories",
+                categoryName: "Accessories",
+                price: 4500,
+
+                description:
+                    "Gaming mouse designed for precision control and comfortable gaming.",
+
+                images: [
+                    "logitechfront.jpeg",
+                    "logitechback.jpeg",
+                    "logitechright.jpeg"
+                ],
+
+                features: [
+                    "High Precision Sensor",
+                    "Gaming Design",
+                    "Programmable Buttons",
+                    "USB Connectivity",
+                    "Ergonomic Shape"
+                ]
+            },
+
+
+            {
+                id: 23,
+                name: "Logitech C920 Webcam",
+                folder: "logitechcamera",
+                category: "accessories",
+                categoryName: "Accessories",
+                price: 6500,
+
+                description:
+                    "HD webcam suitable for online classes, meetings, streaming and video calls.",
+
+                images: [
+                    "logitechcamera.jpeg",
+                    "logitechcamera1.jpeg",
+                    "logitechcamera2.jpeg"
+                ],
+
+                features: [
+                    "Full HD Video",
+                    "Built-in Microphone",
+                    "USB Connectivity",
+                    "Auto Light Correction",
+                    "Video Calling Support"
+                ]
+            },
+
+
+            {
+                id: 24,
+                name: "Portronics Laptop Stand",
+                folder: "portonoics",
+                category: "accessories",
+                categoryName: "Accessories",
+                price: 1500,
+
+                description:
+                    "Adjustable laptop stand designed to improve viewing comfort and desk organization.",
+
+                images: [
+                    "portonics.jpeg",
+                    "portonics1.jpeg"
+                ],
+
+                features: [
+                    "Adjustable Height",
+                    "Foldable Design",
+                    "Lightweight",
+                    "Laptop Compatible",
+                    "Improved Viewing Angle"
+                ]
+            },
+
+
+            {
+                id: 25,
+                name: "USB Power Bank",
+                folder: "usbanker",
+                category: "accessories",
+                categoryName: "Accessories",
+                price: 2000,
+
+                description:
+                    "Portable power bank for charging smartphones and other compatible devices.",
+
+                images: [
+                    "usbanker.jpeg",
+                    "usbanker1.jpeg",
+                    "usbanker2.jpeg"
+                ],
+
+                features: [
+                    "High Capacity",
+                    "Portable Design",
+                    "USB Charging",
+                    "Multiple Device Support",
+                    "LED Indicator"
+                ]
+            }
+
+        ];
+
+
+
+        /* =====================================================
+                              CART
+        ====================================================== */
+
+        let cart = [];
+
+        let selectedProduct = null;
+
+
+
+        /* =====================================================
+                         DISPLAY PRODUCTS
+        ====================================================== */
+
+        function displayProducts(productList) {
+
+            const container = $("#productContainer");
+
+            container.empty();
+
+
+            if (productList.length === 0) {
+
+                container.html(`
+
+                    <div class="col-12 text-center py-5">
+
+                        <i
+                            class="bi bi-search display-4 text-muted"
+                            aria-hidden="true">
+                        </i>
+
+                        <h4 class="mt-3">
+                            No products found
+                        </h4>
+
+                        <p class="text-muted">
+                            Try another product name.
+                        </p>
+
+                    </div>
+
+                `);
+
+                return;
+            }
+
+
+            productList.forEach(function(product) {
+
+                const imagePath =
+                    `images/${product.folder}/${product.images[0]}`;
+
+
+                const card = `
+
+                    <div
+                        class="col-sm-6 col-md-4 col-lg-3 product-item"
+                        data-category="${product.category}"
+                        data-name="${product.name.toLowerCase()}">
+
+                        <div class="card product-card shadow-sm">
+
+                            <img
+                                src="${imagePath}"
+                                class="card-img-top product-image"
+                                alt="${product.name}"
+                                onerror="this.src='https://placehold.co/600x400?text=Image+Not+Available';">
+
+
+                            <div class="card-body d-flex flex-column">
+
+                                <span
+                                    class="badge bg-secondary category-badge mb-2">
+
+                                    ${product.categoryName}
+
+                                </span>
+
+
+                                <h5 class="card-title">
+
+                                    ${product.name}
+
+                                </h5>
+
+
+                                <p class="price">
+
+                                    ₹${product.price.toLocaleString("en-IN")}
+
+                                </p>
+
+
+                                <button
+                                    type="button"
+                                    class="btn btn-primary mt-auto view-product"
+                                    data-id="${product.id}">
+
+                                    <i
+                                        class="bi bi-eye"
+                                        aria-hidden="true">
+                                    </i>
+
+                                    View Details
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+
+                container.append(card);
+
+            });
+
+        }
+
+
+
+        /* =====================================================
+                      OPEN PRODUCT DETAILS
+        ====================================================== */
+
+        function openProduct(product) {
+
+            selectedProduct = product;
+
+
+            $("#modalProductName").text(product.name);
+
+            $("#modalCategory").text(product.categoryName);
+
+            $("#modalDescription").text(product.description);
+
+            $("#modalPrice").text(
+                "₹" + product.price.toLocaleString("en-IN")
+            );
+
+
+            /* ================= FEATURES ================= */
+
+            const featureList =
+                $("#modalFeatures");
+
+            featureList.empty();
+
+
+            product.features.forEach(function(feature) {
+
+                featureList.append(`
+
+                    <li>
+
+                        <i
+                            class="bi bi-check-circle-fill text-success"
+                            aria-hidden="true">
+                        </i>
+
+                        ${feature}
+
+                    </li>
+
+                `);
+
+            });
+
+
+
+            /* ================= CAROUSEL ================= */
+
+            const carousel =
+                $("#carouselImages");
+
+            carousel.empty();
+
+
+            product.images.forEach(function(image, index) {
+
+                const imagePath =
+                    `images/${product.folder}/${image}`;
+
+
+                carousel.append(`
+
+                    <div
+                        class="carousel-item ${index === 0 ? "active" : ""}">
+
+                        <img
+                            src="${imagePath}"
+                            class="d-block modal-product-image"
+                            alt="${product.name} product image"
+                            onerror="this.src='https://placehold.co/1000x600?text=Image+Not+Available';">
+
+                    </div>
+
+                `);
+
+            });
+
+
+
+            /* ================= THUMBNAILS ================= */
+
+            const thumbnails =
+                $("#thumbnailContainer");
+
+            thumbnails.empty();
+
+
+            product.images.forEach(function(image, index) {
+
+                const imagePath =
+                    `images/${product.folder}/${image}`;
+
+
+                thumbnails.append(`
+
+                    <img
+                        src="${imagePath}"
+                        class="thumbnail"
+                        alt="${product.name} thumbnail ${index + 1}"
+                        data-bs-target="#productCarousel"
+                        data-bs-slide-to="${index}"
+                        onerror="this.style.display='none';">
+
+                `);
+
+            });
+
+
+
+            /* ================= SHOW MODAL ================= */
+
+            const modalElement =
+                document.getElementById("productModal");
+
+
+            const modal =
+                bootstrap.Modal.getOrCreateInstance(modalElement);
+
+
+            modal.show();
+
+        }
+
+
+          /* =====================================================
+       VIEW DETAILS + BROWSER BACK BUTTON
+===================================================== */
+
+let productModalFromHistory = false;
+let closingFromBrowserBack = false;
+
+
+$(document).on(
+    "click",
+    ".view-product",
+    function() {
+
+        const id =
+            Number($(this).data("id"));
+
+        const product =
+            products.find(function(item) {
+                return item.id === id;
+            });
+
+        if (!product) {
+            return;
+        }
+
+
+        /* Add a separate history entry for the product */
+
+        history.pushState(
+            {
+                techStoreProductModal: true,
+                productId: product.id
+            },
+            "",
+            window.location.href
+        );
+
+
+        productModalFromHistory = true;
+
+        openProduct(product);
+
+    }
+);
+/* =====================================================
+       BROWSER BACK BUTTON
+===================================================== */
+
+window.addEventListener(
+    "popstate",
+    function(event) {
+
+        const modalElement =
+            document.getElementById("productModal");
+
+        const modal =
+            bootstrap.Modal.getOrCreateInstance(
+                modalElement
+            );
+
+
+        /*
+         * If the user presses browser Back while
+         * product details are open, close only the modal.
+         */
+
+        if (
+            !event.state ||
+            !event.state.techStoreProductModal
+        ) {
+
+            if (
+                modalElement.classList.contains("show")
+            ) {
+
+                closingFromBrowserBack = true;
+
+                modal.hide();
+
+            }
+
+            return;
+        }
+
+    }
+);
+
+
+
+        /* =====================================================
+                       ADD TO CART
+        ====================================================== */
+
+        $("#modalAddCart").on(
+            "click",
+            function() {
+
+                if (!selectedProduct) {
+                    return;
+                }
+
+
+                const existing =
+                    cart.find(function(item) {
+
+                        return item.id === selectedProduct.id;
+
+                    });
+
+
+                if (existing) {
+
+                    existing.quantity++;
+
+                } else {
+
+                    cart.push({
+
+                        ...selectedProduct,
+
+                        quantity: 1
+
+                    });
+
+                }
+
+
+                updateCart();
+
+
+                alert(
+                    selectedProduct.name +
+                    " added to cart!"
+                );
+
+            }
+        );
+
+
+
+        /* =====================================================
+                         UPDATE CART
+        ====================================================== */
+
+        function updateCart() {
+
+            const totalItems =
+                cart.reduce(
+                    function(total, item) {
+
+                        return total + item.quantity;
+
+                    },
+                    0
+                );
+
+
+            $("#cartCount").text(totalItems);
+
+
+            const cartContainer =
+                $("#cartItems");
+
+            cartContainer.empty();
+
+
+            if (cart.length === 0) {
+
+                cartContainer.html(`
+
+                    <div class="text-center py-5">
+
+                        <i
+                            class="bi bi-cart-x display-4 text-muted"
+                            aria-hidden="true">
+                        </i>
+
+                        <p class="mt-3 text-muted">
+                            Your cart is empty.
+                        </p>
+
+                    </div>
+
+                `);
+
+
+                $("#cartTotal").text("₹0");
+
+                return;
+
+            }
+
+
+            let total = 0;
+
+
+            cart.forEach(function(item, index) {
+
+                const itemTotal =
+                    item.price * item.quantity;
+
+
+                total += itemTotal;
+
+
+                cartContainer.append(`
+
+                    <div class="cart-item">
+
+                        <div
+                            class="d-flex justify-content-between">
+
+                            <div>
+
+                                <strong>
+                                    ${item.name}
+                                </strong>
+
+                                <p class="mb-1 text-muted">
+
+                                    ₹${item.price.toLocaleString("en-IN")}
+
+                                </p>
+
+                            </div>
+
+
+                            <button
+                                type="button"
+                                class="btn btn-sm btn-outline-danger remove-cart"
+                                data-index="${index}"
+                                aria-label="Remove ${item.name}"
+                                title="Remove ${item.name}">
+
+                                <i
+                                    class="bi bi-trash"
+                                    aria-hidden="true">
+                                </i>
+
+                            </button>
+
+                        </div>
+
+
+                        <div
+                            class="d-flex align-items-center gap-2">
+
+                            <button
+                                type="button"
+                                class="btn btn-sm btn-outline-secondary decrease"
+                                data-index="${index}"
+                                aria-label="Decrease quantity">
+
+                                -
+
+                            </button>
+
+
+                            <span>
+                                ${item.quantity}
+                            </span>
+
+
+                            <button
+                                type="button"
+                                class="btn btn-sm btn-outline-secondary increase"
+                                data-index="${index}"
+                                aria-label="Increase quantity">
+
+                                +
+
+                            </button>
+
+
+                            <span class="ms-auto fw-bold">
+
+                                ₹${itemTotal.toLocaleString("en-IN")}
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                `);
+
+            });
+
+
+            $("#cartTotal").text(
+                "₹" + total.toLocaleString("en-IN")
+            );
+
+        }
+
+
+
+        /* =====================================================
+                       INCREASE QUANTITY
+        ====================================================== */
+
+        $(document).on(
+            "click",
+            ".increase",
+            function() {
+
+                const index =
+                    Number($(this).data("index"));
+
+
+                cart[index].quantity++;
+
+
+                updateCart();
+
+            }
+        );
+
+
+
+        /* =====================================================
+                       DECREASE QUANTITY
+        ====================================================== */
+
+        $(document).on(
+            "click",
+            ".decrease",
+            function() {
+
+                const index =
+                    Number($(this).data("index"));
+
+
+                if (cart[index].quantity > 1) {
+
+                    cart[index].quantity--;
+
+                } else {
+
+                    cart.splice(index, 1);
+
+                }
+
+
+                updateCart();
+
+            }
+        );
+
+
+
+        /* =====================================================
+                         REMOVE ITEM
+        ====================================================== */
+
+        $(document).on(
+            "click",
+            ".remove-cart",
+            function() {
+
+                const index =
+                    Number($(this).data("index"));
+
+
+                cart.splice(index, 1);
+
+
+                updateCart();
+
+            }
+        );
+
+
+
+        /* =====================================================
+                            SEARCH
+        ====================================================== */
+
+        $("#searchInput").on(
+            "keyup",
+            function() {
+
+                const search =
+                    $(this).val()
+                    .toLowerCase()
+                    .trim();
+
+
+                const filtered =
+                    products.filter(
+                        function(product) {
+
+                            return product.name
+                                .toLowerCase()
+                                .includes(search);
+
+                        }
+                    );
+
+
+                displayProducts(filtered);
+
+            }
+        );
+
+
+
+        /* =====================================================
+                       CATEGORY FILTER
+        ====================================================== */
+
+        $(".category-filter").on(
+            "click",
+            function() {
+
+                const category =
+                    $(this).data("category");
+
+
+                $(".category-filter")
+                    .removeClass("btn-primary")
+                    .addClass("btn-outline-primary");
+
+
+                $(this)
+                    .removeClass("btn-outline-primary")
+                    .addClass("btn-primary");
+
+
+                if (category === "all") {
+
+                    displayProducts(products);
+
+                } else {
+
+                    const filtered =
+                        products.filter(
+                            function(product) {
+
+                                return product.category === category;
+
+                            }
+                        );
+
+
+                    displayProducts(filtered);
+
+                }
+
+            }
+        );
+
+
+
+        /* =====================================================
+                           CHECKOUT
+        ====================================================== */
+
+        $("#checkoutBtn").on(
+            "click",
+            function() {
+
+                if (cart.length === 0) {
+
+                    alert(
+                        "Your cart is empty."
+                    );
+
+                    return;
+
+                }
+
+
+                alert(
+                    "Thank you for shopping with TechStore!\n\n" +
+                    "Checkout functionality can be connected to a backend and payment gateway in the future."
+                );
+
+            }
+        );
+         /* =====================================================
+       MODAL CLOSE / HISTORY CONTROL
+===================================================== */
+
+$("#productModal").on(
+    "hide.bs.modal",
+    function() {
+
+        /*
+         * If the modal is being closed because the
+         * browser Back button was pressed, don't
+         * change the browser history again.
+         */
+
+        if (closingFromBrowserBack) {
+
+            closingFromBrowserBack = false;
+            productModalFromHistory = false;
+
+            return;
+        }
+
+
+        /*
+         * If the user clicks the X button instead,
+         * remove the product-details history entry.
+         */
+
+        if (
+            productModalFromHistory &&
+            window.history.state &&
+            window.history.state.techStoreProductModal
+        ) {
+
+            productModalFromHistory = false;
+
+            history.back();
+
+        }
+
+    }
+);
+
+
+        /* =====================================================
+                         INITIAL LOAD
+        ====================================================== */
+
+        $(document).ready(
+            function() {
+
+                displayProducts(products);
+
+                updateCart();
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
